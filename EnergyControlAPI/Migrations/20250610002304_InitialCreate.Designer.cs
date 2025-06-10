@@ -11,8 +11,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace EnergyControlAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250608151407_AddUsers")]
-    partial class AddUsers
+    [Migration("20250610002304_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,29 @@ namespace EnergyControlAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EnergyControlAPI.Models.Sector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<int>("FloorNumber")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sectors");
+                });
 
             modelBuilder.Entity("EnergyControlAPI.Models.UserModel", b =>
                 {

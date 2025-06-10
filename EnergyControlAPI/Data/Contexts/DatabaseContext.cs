@@ -6,6 +6,7 @@ namespace EnergyControlAPI.Data.Contexts
     {
         // PROPRIEDADE PARA MANIPULAR A ENTIDADE DE USER
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<Sector> Sectors { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
