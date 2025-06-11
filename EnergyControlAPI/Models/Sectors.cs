@@ -18,5 +18,8 @@
         /// Observações adicionais sobre o setor (opcional)
         /// </summary>
         public string? Description { get; set; }
+
+        // Propriedade de navegação reversa (coleção)
+        public ICollection<EquipmentModel> Equipments { get; set; } = new List<EquipmentModel>();
     }
 }

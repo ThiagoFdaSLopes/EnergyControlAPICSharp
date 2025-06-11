@@ -21,6 +21,32 @@ namespace EnergyControlAPI.Migrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EnergyControlAPI.Models.EquipmentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<int>("SectorId")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectorId");
+
+                    b.ToTable("equipment", (string)null);
+                });
+
             modelBuilder.Entity("EnergyControlAPI.Models.Sector", b =>
                 {
                     b.Property<int>("Id")
@@ -74,6 +100,22 @@ namespace EnergyControlAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("EnergyControlAPI.Models.EquipmentModel", b =>
+                {
+                    b.HasOne("EnergyControlAPI.Models.Sector", "Sector")
+                        .WithMany("Equipments")
+                        .HasForeignKey("SectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sector");
+                });
+
+            modelBuilder.Entity("EnergyControlAPI.Models.Sector", b =>
+                {
+                    b.Navigation("Equipments");
                 });
 #pragma warning restore 612, 618
         }
