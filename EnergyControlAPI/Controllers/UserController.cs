@@ -56,7 +56,6 @@ namespace EnergyControlAPI.Controllers
 
         // POST: api/User
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto dto)
         {
             var user = new UserModel

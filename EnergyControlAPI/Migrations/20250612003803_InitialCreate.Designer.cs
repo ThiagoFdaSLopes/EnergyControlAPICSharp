@@ -11,7 +11,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace EnergyControlAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250611224530_InitialCreate")]
+    [Migration("20250612003803_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

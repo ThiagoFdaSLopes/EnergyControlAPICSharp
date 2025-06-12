@@ -18,7 +18,6 @@ namespace EnergyControlAPI.Controllers
 
         // POST: api/Sectors
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<SectorDTO>> Create([FromBody] SectorDTO dto)
         {
             var entity = new Sector

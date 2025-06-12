@@ -12,7 +12,5 @@ namespace EnergyControlAPI.DTOs
 
         public int SectorId { get; set; }
 
-        // Propriedade de navegação para o relacionamento com Sector
-        public Sector Sector { get; set; } = null!;
     }
 }
