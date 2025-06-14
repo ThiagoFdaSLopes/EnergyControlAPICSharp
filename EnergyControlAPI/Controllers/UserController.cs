@@ -18,7 +18,7 @@ namespace EnergyControlAPI.Controllers
 
         // GET: api/User?pageNumber=1&pageSize=10
         [HttpGet]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<PagedResponse<UserDto>>> GetAll(
             [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 10)
@@ -43,7 +43,7 @@ namespace EnergyControlAPI.Controllers
 
         // GET: api/User/5
         [HttpGet("{id:int}")]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
             var u = await _db.Users.AsNoTracking()
@@ -56,7 +56,6 @@ namespace EnergyControlAPI.Controllers
 
         // POST: api/User
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto dto)
         {
             var user = new UserModel

@@ -62,6 +62,11 @@ namespace EnergyControlAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "Id", "Email", "Name", "Password", "Role" },
+                values: new object[] { 1, "admin@energycontrol.com", "Admin", "$2a$12$wtfPBiG6Zks2jlWW1/ZeUuPGuCvJwtBs/bMyXBktI8q9Bk1NNIp5O", "Admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_equipment_SectorId",
                 table: "equipment",

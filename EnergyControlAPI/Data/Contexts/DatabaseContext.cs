@@ -35,6 +35,17 @@ namespace EnergyControlAPI.Data.Contexts
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
+            // Inserindo User Admin
+            modelBuilder.Entity<UserModel>().HasData(
+                new UserModel
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    Email = "admin@energycontrol.com",
+                    Role = "Admin",
+                    Password = "$2a$12$wtfPBiG6Zks2jlWW1/ZeUuPGuCvJwtBs/bMyXBktI8q9Bk1NNIp5O"
+                });
+
         }
         public DatabaseContext(DbContextOptions options): base(options) { }
 

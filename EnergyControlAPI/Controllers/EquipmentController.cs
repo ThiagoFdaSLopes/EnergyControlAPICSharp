@@ -17,7 +17,7 @@ namespace EnergyControlAPI.Controllers
 
         // POST: api/Equipment
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<EquipmentDto>> Create([FromBody] EquipmentDto dto)
         {
             var entity = new EquipmentModel
@@ -36,6 +36,7 @@ namespace EnergyControlAPI.Controllers
 
         // GET: api/Equipment/{id}
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<EquipmentDto>> GetById(int id)
         {
             var entity = await _db.Equipments.FindAsync(id);
@@ -56,6 +57,7 @@ namespace EnergyControlAPI.Controllers
 
         // GET: api/Equipment
         [HttpGet]
+        //[Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<IEnumerable<EquipmentDto>>> GetAll()
         {
             var list = await _db.Equipments

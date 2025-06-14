@@ -100,6 +100,16 @@ namespace EnergyControlAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@energycontrol.com",
+                            Name = "Admin",
+                            Password = "$2a$12$wtfPBiG6Zks2jlWW1/ZeUuPGuCvJwtBs/bMyXBktI8q9Bk1NNIp5O",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("EnergyControlAPI.Models.EquipmentModel", b =>

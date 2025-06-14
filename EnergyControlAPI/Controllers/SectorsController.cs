@@ -18,6 +18,7 @@ namespace EnergyControlAPI.Controllers
 
         // POST: api/Sectors
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SectorDTO>> Create([FromBody] SectorDTO dto)
         {
             var entity = new Sector
@@ -36,6 +37,7 @@ namespace EnergyControlAPI.Controllers
 
         // GET: api/Sectors/{id}
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SectorDTO>> GetById(int id)
         {
             var entity = await _db.Sectors.FindAsync(id);
@@ -55,6 +57,7 @@ namespace EnergyControlAPI.Controllers
 
         // (Opcional) GET: api/Sectors
         [HttpGet]
+        //[Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<IEnumerable<SectorDTO>>> GetAll()
         {
             var list = await _db.Sectors
