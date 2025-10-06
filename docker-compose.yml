@@ -1,0 +1,30 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Serviço da sua API .NET
+  api:
+    build:
+      context: . # Usa o Dockerfile na raiz do projeto
+      dockerfile: Dockerfile
+    environment:
+      # Configura a string de conexão para apontar para o serviço 'db' do Docker
+      - ConnectionStrings__DatabaseConnection=Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = db)(PORT = 1521))(CONNECT_DATA = (SERVICE_NAME = XEPDB1)));User ID=system;Password=${ORACLE_PASSWORD}
+      - Jwt__Key=${JWT_KEY}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+      - ASPNETCORE_ENVIRONMENT=Development # Padrão para dev
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      db:
+        # Garante que a API só suba depois que o banco estiver saudável
+        condition: service_healthy
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  oracledata: # Volume para persistir os dados do Oracle

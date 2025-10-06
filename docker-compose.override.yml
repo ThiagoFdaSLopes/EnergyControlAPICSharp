@@ -1,0 +1,22 @@
+# docker-compose.override.yml
+version: '3.8'
+
+services:
+  # Serviço do Banco de Dados Oracle (somente para desenvolvimento)
+  db:
+    image: gvenzl/oracle-xe:latest # Imagem Oracle Express Edition, leve e gratuita
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+    volumes:
+      - oracledata:/opt/oracle/oradata
+    healthcheck:
+      # Teste para verificar se o banco está pronto para aceitar conexões
+      test: ["CMD", "sqlplus", "-S", "system/${ORACLE_PASSWORD}@//localhost:1521/XEPDB1", "as", "sysdba", "<<<", "exit;"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  oracledata:

@@ -7,8 +7,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // ADD banco de dados
-var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
-builder.Services.AddDbContext<DatabaseContext>( opt => opt.UseOracle(connectionString).EnableSensitiveDataLogging(true));
+builder.Services.AddDbContext<DatabaseContext>( opt => opt.UseSqlite("Data Source=/home/energycontrol.db").EnableSensitiveDataLogging(true));
 
 // Implementação de JWT Bearer
 var jwtKey = builder.Configuration["Jwt:Key"];
