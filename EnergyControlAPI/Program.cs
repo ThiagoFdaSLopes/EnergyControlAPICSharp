@@ -59,6 +59,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Bloco de código para aplicar as migrações automaticamente
+try
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+        dbContext.Database.Migrate();
+    }
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Ocorreu um erro durante a migração do banco de dados.");
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

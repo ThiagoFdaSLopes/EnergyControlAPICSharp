@@ -1,10 +1,9 @@
-version: '3.8'
-
 services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: EnergyControlAPI/Dockerfile
+    user: "${UID}:${GID}"
     environment:
       # String de conexão para SQLite. O arquivo .db será salvo no diretório /app/data
       - ConnectionStrings__DatabaseConnection=Data Source=/app/data/energycontrol.db
