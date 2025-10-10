@@ -1,11 +1,9 @@
-# docker-compose.yml
-version: '3.8'
-
 services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: EnergyControlAPI/Dockerfile
+    user: "${UID}:${GID}"
     environment:
       # String de conexão para SQLite. O arquivo .db será salvo no diretório /app/data
       - ConnectionStrings__DatabaseConnection=Data Source=/app/data/energycontrol.db
@@ -17,8 +15,13 @@ services:
       - "8080:8080"
       - "8081:8081"
     volumes:
-      # Monta o volume 'sqlitedata' no diretório /app/data para persistir o banco
+      # Monta o volume 'sqlitedata' no diretório /app/data dentro do contêiner
+      # Isso garante que o arquivo do banco de dados persista
       - sqlitedata:/app/data
 
 volumes:
-  sqlitedata:
+  sqlitedata: # Volume para persistir o arquivo do banco de dados SQLite
+
+networks:
+  default:
+    driver: bridge

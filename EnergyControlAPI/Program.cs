@@ -8,7 +8,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 // ADD banco de dados
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
-builder.Services.AddDbContext<DatabaseContext>( opt => opt.UseSqlite(connectionString).EnableSensitiveDataLogging(true));
+builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseSqlite(connectionString));
 
 // Implementação de JWT Bearer
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -58,6 +58,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Bloco de código para aplicar as migrações automaticamente
+try
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+        dbContext.Database.Migrate();
+    }
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Ocorreu um erro durante a migração do banco de dados.");
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

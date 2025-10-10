@@ -27,7 +27,7 @@ jobs:
         run: dotnet build EnergyControlAPI/EnergyControlAPI.csproj --configuration Release
 
       - name: Run tests
-        run: dotnet test EnergyControlAPI.Tests/EnergyControlAPI.Tests.csproj --no-build --verbosity normal
+        run: dotnet test EnergyControlAPI.Tests/EnergyControlAPI.Tests.csproj --no-build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish EnergyControlAPI/EnergyControlAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
